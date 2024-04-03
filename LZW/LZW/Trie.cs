@@ -10,7 +10,7 @@ public class Trie
     public Trie()
     {
         root = new TrieNode();
-        size = 1;
+        size = 0;
     }
 
     public bool Add(string element) // add new word to the tree
@@ -22,13 +22,16 @@ public class Trie
             if (!currentNode.Children.TryGetValue(c, out TrieNode? value)) // try to go through existing prefix
             {
                 value = new TrieNode();
-                size++;
                 currentNode.Children[c] = value; // if there is no such prefix, create new node with current letter
             }
             currentNode = value; // move "pointer" to the next node
         }
 
         bool isNewWord = !currentNode.IsEndOfWord; // return true if it is a new word
+        if (isNewWord)
+        {
+            size++;
+        }
         currentNode.IsEndOfWord = true; // mark current node as the end of new word
 
         return isNewWord;
@@ -70,7 +73,8 @@ public class Trie
         {
             return false;
         }
-
+        
+        size--;
         currentNode.IsEndOfWord = false; // we delete the word, so now this is not the end of the word
         
         for (int i = nodes.Count - 1; i >= 0; i--) // Remove all unused nodes
@@ -79,7 +83,6 @@ public class Trie
             if (currentNode.Children.Count == 0 && !currentNode.IsEndOfWord)  
             { // remove node only if it is not the end of another word and there are no another children
                 nodes[i - 1].Children.Remove(element[i - 1]);
-                size--;
             }
             else
             {

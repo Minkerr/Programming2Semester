@@ -15,18 +15,7 @@ public class TrieTest
     }
     
     [Test]
-    public void Size_shouldReturnNumberOfNodesForTrieWithOneWord()
-    {
-        // arrange
-        Trie trie = new Trie();
-        // actual
-        trie.Add("add");
-        // assert
-        Assert.That(trie.Size(), Is.EqualTo(4));
-    }
-    
-    [Test]
-    public void Size_shouldReturnNumberOfNodesForTrieWithMoreThanOneWord()
+    public void Size_shouldReturnNumberOfWordsForTrieWithMoreThanOneWord()
     {
         // arrange
         Trie trie = new Trie();
@@ -36,11 +25,11 @@ public class TrieTest
         trie.Add("test"); //    \--t--> () --e--> () --s--> --t--> (*) --s--> (*)
         trie.Add("tests");
         // assert
-        Assert.That(trie.Size(), Is.EqualTo(11));
+        Assert.That(trie.Size(), Is.EqualTo(4));
     }
     
     [Test]
-    public void Remove_shouldRemoveWordFromTrieAndDecreaseSizeByDeletingTheSuffixes()
+    public void Remove_shouldRemoveWordFromTrieAndDecreaseSize()
     {
         // arrange
         Trie trie = new Trie();
@@ -51,7 +40,7 @@ public class TrieTest
         trie.Add("tests");
         trie.Remove("adam");
         // assert
-        Assert.That(trie.Size(), Is.EqualTo(9));
+        Assert.That(trie.Size(), Is.EqualTo(3));
         Assert.That(trie.Contains("adam"), Is.False);
     }
     
