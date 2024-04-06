@@ -7,10 +7,10 @@ using System.Text;
 /// </summary>
 public class Game
 {
-    private int x; //coordinates of the character
-    private int y;
-    private List<StringBuilder> map = []; // array of walls and passages
-    
+    private int x { get; set; } //coordinates of the character
+    private int y { get; set; }
+    private List<StringBuilder> map { get; } // array of walls and passages
+
     /// <summary>
     /// Read map from a file and print eat to the console.
     /// </summary>
@@ -18,13 +18,14 @@ public class Game
     {
         x = 1;
         y = 1;
+        map = [];
         string[] allLines;
         allLines = File.ReadAllLines(filePath);
         foreach (var value in allLines)
         {
             map.Add(new StringBuilder(value));
         }
-        
+        map[x][y] = '@';
         PrintTheMap();
     }
 
@@ -34,7 +35,6 @@ public class Game
         {
             Console.WriteLine(value);
         }
-        SetCharacter(x, y);
     }
 
     private void SetCharacter(int newX, int newY)
@@ -44,8 +44,8 @@ public class Game
         map[y][x] = ' ';
         Console.Write("@");
         Console.SetCursorPosition(newX, newY);
-        this.x = newX;
-        this.y = newY;
+        x = newX;
+        y = newY;
     }
     
     private void TryToMove(Direction direction)
@@ -72,6 +72,29 @@ public class Game
         {
             SetCharacter(newX, newY);
         }
+    }
+    
+    public bool WillCharacterMove(Direction direction)
+    {
+        int newX = x;
+        int newY = y;
+        switch (direction)
+        {
+            case Direction.Left:
+                newX--;
+                break;
+            case Direction.Right:
+                newX++;
+                break;
+            case Direction.Up:
+                newY--;
+                break;
+            case Direction.Down:
+                newY++;
+                break;
+        }
+
+        return map[newY][newX] == ' ';
     }
 
     /// <summary>
@@ -113,5 +136,10 @@ public class Game
     {
         Console.Clear();
         Environment.Exit(0);
+    }
+    
+    public List<StringBuilder> GetMap()
+    {
+        return map;
     }
 }
