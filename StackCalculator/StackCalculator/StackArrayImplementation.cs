@@ -1,4 +1,4 @@
-using Calculator.exceptions;
+using Calculator.Exceptions;
 
 namespace Calculator;
 

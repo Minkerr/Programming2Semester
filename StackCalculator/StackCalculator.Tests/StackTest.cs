@@ -1,4 +1,4 @@
-using Calculator.exceptions;
+using Calculator.Exceptions;
 using Assert = NUnit.Framework.Assert;
 
 namespace Calculator.Tests;
@@ -59,6 +59,5 @@ public class StackTest
     {
         Stack stack = new StackArrayImplementation(0);
         Assert.Throws<StackIsFullException>(() => stack.Add(1));
-
     }
 }

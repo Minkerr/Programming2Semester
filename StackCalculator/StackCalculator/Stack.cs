@@ -1,19 +1,35 @@
 namespace Calculator;
 
+// interface of stack data structure
 public interface Stack 
 {
-    // put new element on top of the stack
+    /// <summary>
+    /// put new element on top of the stack
+    /// </summary>
+    /// <param name="value"></param>
     void Add(double value);
 
-    // remove top element og the stack
+    /// <summary>
+    /// remove top element og the stack
+    /// </summary>
+    /// <returns></returns>
     double Pop();
 
-    // get top element of the stack
+    /// <summary>
+    /// get top element of the stack
+    /// </summary>
+    /// <returns></returns>
     double Peek();
 
-    // check  if the stack is empty
+    /// <summary>
+    /// check  if the stack is empty
+    /// </summary>
+    /// <returns></returns>
     bool IsEmpty();
 
-    // get number of elements in the stack
+    /// <summary>
+    /// get number of elements in the stack
+    /// </summary>
+    /// <returns></returns>
     int Size();
 }

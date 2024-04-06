@@ -1,4 +1,4 @@
-namespace Calculator.exceptions;
+namespace Calculator.Exceptions;
 
 public class StackIsEmptyException : SystemException
 {
