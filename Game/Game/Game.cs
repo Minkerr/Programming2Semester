@@ -37,7 +37,7 @@ public class Game
         }
     }
 
-    private void SetCharacter(int newX, int newY)
+    private void SetNewCharacterPosition(int newX, int newY)
     {
         Console.Write(' ');
         Console.SetCursorPosition(newX, newY);
@@ -68,9 +68,9 @@ public class Game
                 break;
         }
 
-        if (map[newY][newX] == ' ') //The character can only pass through an empty cell
+        if (map[newY][newX] == ' ') //The character can only pass through an free cell
         {
-            SetCharacter(newX, newY);
+            SetNewCharacterPosition(newX, newY);
         }
     }
     
