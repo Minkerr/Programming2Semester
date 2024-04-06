@@ -2,18 +2,18 @@ using Calculator.Exceptions;
 
 namespace Calculator;
 
-public class StackArrayImplementation : Stack // list stack implementation
+/// <summary>
+/// list stack implementation
+/// </summary>
+public class StackArrayImplementation : IStack 
 {
-    private const int DEFAULT_CAPASITY = 1024; 
+    private const int DefaultCapacity = 1024; 
     private int capacity; // max capacity of stack
     private double[] stackArray;
     private int top; // index of top stack element in array
 
-    public StackArrayImplementation()
+    public StackArrayImplementation() : this(DefaultCapacity)
     {
-        capacity = DEFAULT_CAPASITY;
-        stackArray = new double[capacity];
-        top = -1; // top == -1 if the stack is empty 
     }
 
     public StackArrayImplementation(int capacity) // constructor with custom capacity
@@ -27,7 +27,8 @@ public class StackArrayImplementation : Stack // list stack implementation
     {
         if (top == capacity - 1) // one cannot put more items on the stack than the capacity
         {
-            throw new StackIsFullException();
+            Array.Resize(ref stackArray, stackArray.Length + DefaultCapacity);
+            capacity = stackArray.Length;
         }
         top++; 
         stackArray[top] = value; // write element to the array
@@ -54,12 +55,8 @@ public class StackArrayImplementation : Stack // list stack implementation
     }
 
     public bool IsEmpty()
-    {
-        return (top == -1); // the stack is empty if top == -1 
-    }
-
+        => (top == -1); // the stack is empty if top == -1 
+    
     public int Size()
-    {
-        return top + 1; // stack size is the index of the top stack element + 1
-    }
+        => top + 1; // stack size is the index of the top stack element + 1
 }

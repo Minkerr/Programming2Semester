@@ -2,21 +2,20 @@
 
 namespace Calculator;
 
-public class StackCalculator // calculator of expressions written in reverse Polish notation
+/// <summary>
+/// calculator of expressions written in reverse Polish notation
+/// </summary>
+public class StackCalculator 
 {
-    private Stack stack;
+    private IStack stack;
     private const double DELTA = 0.001; // error for checking the equality of floating point numbers
 
-    public StackCalculator(Stack stack) // we can use two stack realization for this calculator
-    {
-        this.stack = stack;
-    }
-
+    public StackCalculator(IStack stack) // we can use two stack realization for this calculator
+        => this.stack = stack;
+    
     private bool ApproximatelyEqual(double first, double second) // checking the equality of floating point numbers
-    {
-        return first >= second - DELTA && first <= second + DELTA;
-    }
-
+        => first >= second - DELTA && first <= second + DELTA;
+    
     public double Calculate(string expression)
     {
         string[] tokens = expression.Split(' '); // make all numbers and operators separate elements

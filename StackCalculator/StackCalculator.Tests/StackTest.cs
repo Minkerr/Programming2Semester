@@ -13,14 +13,14 @@ public class StackTest
         };
 
     [TestCaseSource(nameof(Stacks))]
-    public void Add_shouldAddElementToStackTop(Stack stack)
+    public void Add_shouldAddElementToStackTop(IStack stack)
     {
         stack.Add(2);
         Assert.That(stack.Peek(), Is.EqualTo(2));
     }
 
     [TestCaseSource(nameof(Stacks))]
-    public void Pop_shouldDeleteElementFromStackTopAndReturnDeletedElement(Stack stack)
+    public void Pop_shouldDeleteElementFromStackTopAndReturnDeletedElement(IStack stack)
     {
         stack.Add(2);
         var actual = stack.Pop();
@@ -29,19 +29,19 @@ public class StackTest
     }
 
     [TestCaseSource(nameof(Stacks))]
-    public void Pop_shouldThrowExceptionWhenStackIsEmpty(Stack stack)
+    public void Pop_shouldThrowExceptionWhenStackIsEmpty(IStack stack)
     {
         Assert.Throws<StackIsEmptyException>(() => stack.Pop());
     }
 
     [TestCaseSource(nameof(Stacks))]
-    public void Peek_shouldThrowExceptionWhenStackIsEmpty(Stack stack)
+    public void Peek_shouldThrowExceptionWhenStackIsEmpty(IStack stack)
     {
         Assert.Throws<StackIsEmptyException>(() => stack.Peek());
     }
     
     [TestCaseSource(nameof(Stacks))]
-    public void Size_shouldReturnNumberOfElements(Stack stack)
+    public void Size_shouldReturnNumberOfElements(IStack stack)
     {
         stack.Add(2);
         stack.Add(3);
@@ -49,15 +49,16 @@ public class StackTest
     }
     
     [TestCaseSource(nameof(Stacks))]
-    public void Size_shouldReturnZeroForEmptyStack(Stack stack)
+    public void Size_shouldReturnZeroForEmptyStack(IStack stack)
     {
         Assert.That(stack.Size(), Is.EqualTo(0));
     }
 
     [Test]
-    public void AddInArrayStack_shouldThrowExceptionWhenStackOverflow()
+    public void AddInArrayStack_shouldResizeStackWhenStackIsOverflowed()
     {
-        Stack stack = new StackArrayImplementation(0);
-        Assert.Throws<StackIsFullException>(() => stack.Add(1));
+        IStack stack = new StackArrayImplementation(0);
+        stack.Add(2);
+        Assert.That(stack.Peek(), Is.EqualTo(2));
     }
 }

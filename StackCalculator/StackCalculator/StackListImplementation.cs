@@ -2,7 +2,10 @@ using Calculator.Exceptions;
 
 namespace Calculator;
 
-public class StackListImplementation : Stack // list stack implementation
+/// <summary>
+/// list stack implementation
+/// </summary>
+public class StackListImplementation : IStack 
 {
     private List<double> stackList;
     
@@ -18,7 +21,7 @@ public class StackListImplementation : Stack // list stack implementation
 
     public double Pop()
     {
-        if(stackList.Count == 0) // one cannot delete an item from an empty stack
+        if (stackList.Count == 0) // one cannot delete an item from an empty stack
         {
             throw new StackIsEmptyException();
         }
@@ -30,7 +33,7 @@ public class StackListImplementation : Stack // list stack implementation
 
     public double Peek()
     {
-        if(stackList.Count == 0) // one cannot get an item from an empty stack
+        if (stackList.Count == 0) // one cannot get an item from an empty stack
         {
             throw new StackIsEmptyException();
         }
@@ -39,12 +42,10 @@ public class StackListImplementation : Stack // list stack implementation
     }
 
     public bool IsEmpty()
-    {
-        return stackList.Count == 0; // the stack is empty if there are no elements in the list 
-    }
+        => stackList.Count == 0; // the stack is empty if there are no elements in the list 
+    
 
     public int Size()
-    {
-        return stackList.Count; // the size of stack is the size of list 
-    }
+        => stackList.Count; // the size of stack is the size of list 
+    
 }
