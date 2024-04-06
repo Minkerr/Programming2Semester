@@ -7,9 +7,7 @@ public class StackCalculatorTest
     private const double DELTA = 0.001;
     
     private bool ApproximatelyEqual(double first, double second)
-    {
-        return first >= second - DELTA && first <= second + DELTA;
-    }
+        => first >= second - DELTA && first <= second + DELTA;
     
     private static IEnumerable<TestCaseData> Stacks
         => new TestCaseData[]
