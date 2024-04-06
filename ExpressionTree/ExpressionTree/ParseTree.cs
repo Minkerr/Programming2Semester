@@ -84,7 +84,6 @@ public class ParseTree
     public double Calculate()
         => root.Calculate();
 
-
     public void Print()
         => root.Print();
 }

@@ -13,4 +13,12 @@ public class SubtractionOperation : Operation
 
     public override double Calculate()
         => left.Calculate() - right.Calculate();
+    
+    public override void Print()
+    {
+        Console.Write("( " + Symbol + " ");
+        left.Print();
+        right.Print();
+        Console.Write(")");
+    }
 }

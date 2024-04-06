@@ -21,4 +21,12 @@ public class DivideOperation : Operation
         }
         return left.Calculate() / rightResult;
     }
+    
+    public override void Print()
+    {
+        Console.Write("( " + Symbol + " ");
+        left.Print();
+        right.Print();
+        Console.Write(")");
+    }
 }
