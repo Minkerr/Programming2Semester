@@ -1,5 +1,3 @@
-using System.Drawing;
-
 namespace ExpressionTree;
 
 /// <summary>
@@ -66,7 +64,7 @@ public class ParseTree
         }
     }
 
-    bool TooManyNumbersInInputOrStartsWithNumber(string[] tokens)
+    private bool TooManyNumbersInInputOrStartsWithNumber(string[] tokens)
     {
         bool result = false;
         if (tokens[0] is not ("+" or "/" or "-" or "*"))
@@ -84,7 +82,9 @@ public class ParseTree
     }
     
     public double Calculate()
-    {
-        return root.Calculate();
-    }
+        => root.Calculate();
+
+
+    public void Print()
+        => root.Print();
 }

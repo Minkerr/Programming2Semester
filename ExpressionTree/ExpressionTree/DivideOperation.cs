@@ -3,9 +3,10 @@ namespace ExpressionTree;
 /// <summary>
 /// Implementation of divide operation
 /// </summary>
-public class DivideOperation : Node
+public class DivideOperation : Operation
 {
     private static double DELTA = 0.001;
+    protected string Symbol = "/";
     
     public DivideOperation(Node left, Node right) : base(left, right)
     {
@@ -19,10 +20,5 @@ public class DivideOperation : Node
             throw new DivideByZeroException();
         }
         return left.Calculate() / rightResult;
-    }
-
-    public override void Print()
-    {
-        throw new NotImplementedException();
     }
 }

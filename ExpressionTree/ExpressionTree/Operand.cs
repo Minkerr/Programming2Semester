@@ -14,5 +14,5 @@ public class Operand : Node
 
 
     public override void Print()
-        => Console.Write(value);
+        => Console.Write(value + " ");
 }

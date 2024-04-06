@@ -6,6 +6,7 @@ public class ParseTreeTest
     public void Calculate_shouldCalculateSimpleExpression()
     {
         ParseTree tree = new ParseTree("+ 2 (/ 12 4)");
+        tree.Print();
         Assert.That(tree.Calculate(), Is.EqualTo(5));
     }
     
