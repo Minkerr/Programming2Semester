@@ -5,7 +5,7 @@ namespace Calculator.Tests;
 public class StackCalculatorTest
 {
     private const double DELTA = 0.001;
-    
+
     private static IEnumerable<TestCaseData> StackCalculators
         => new TestCaseData[]
         {
