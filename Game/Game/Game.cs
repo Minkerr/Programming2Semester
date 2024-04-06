@@ -14,7 +14,6 @@ public class Game
     /// <summary>
     /// Read map from a file and print eat to the console.
     /// </summary>
-    /// <param name="filePath"> The File path.</param>
     public Game(string filePath)
     {
         x = 1;
