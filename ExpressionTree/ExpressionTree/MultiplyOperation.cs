@@ -1,5 +1,8 @@
 namespace ExpressionTree;
 
+/// <summary>
+/// Implementation of multiply operation
+/// </summary>
 public class MultiplyOperation : Node
 {
     public MultiplyOperation(Node left, Node right) : base(left, right)
@@ -7,9 +10,8 @@ public class MultiplyOperation : Node
     }
 
     public override double Calculate()
-    {
-        return left.Calculate() * right.Calculate();
-    }
+        => left.Calculate() * right.Calculate();
+    
 
     public override void Print()
     {

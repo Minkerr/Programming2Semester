@@ -1,5 +1,8 @@
 namespace ExpressionTree;
 
+/// <summary>
+/// Type of Node that storage the number
+/// </summary>
 public class Operand : Node 
 {
     public Operand(double value) : base(value)
@@ -7,12 +10,9 @@ public class Operand : Node
     }
 
     public override double Calculate()
-    {
-        return value;
-    }
+        => value;
+
 
     public override void Print()
-    {
-        throw new NotImplementedException();
-    }
+        => Console.Write(value);
 }

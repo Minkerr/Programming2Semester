@@ -1,5 +1,8 @@
 namespace ExpressionTree;
 
+/// <summary>
+/// Implementation of divide operation
+/// </summary>
 public class DivideOperation : Node
 {
     private static double DELTA = 0.001;

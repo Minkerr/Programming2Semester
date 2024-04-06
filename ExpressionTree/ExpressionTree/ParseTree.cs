@@ -2,6 +2,9 @@ using System.Drawing;
 
 namespace ExpressionTree;
 
+/// <summary>
+/// Binary tree that calculates the value of an expression
+/// </summary>
 public class ParseTree
 {
     private Node root;
