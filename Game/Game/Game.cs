@@ -25,8 +25,8 @@ public class Game
         {
             map.Add(new StringBuilder(value));
         }
-        map[x][y] = '@';
         PrintTheMap();
+        SetNewCharacterPosition(x, y);
     }
 
     private void PrintTheMap()
@@ -36,7 +36,7 @@ public class Game
             Console.WriteLine(value);
         }
     }
-
+ 
     private void SetNewCharacterPosition(int newX, int newY)
     {
         Console.Write(' ');
