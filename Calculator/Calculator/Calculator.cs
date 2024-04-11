@@ -49,7 +49,7 @@ public class Calculator : INotifyPropertyChanged
     /// <summary>
     /// Assign a digit to the displayed number in the calculator.
     /// </summary>
-    public void AssignDigitToDisplayedNumber(char digit)
+    public void AssignDigit(char digit)
     {
         switch (currentState)
         {
@@ -74,7 +74,7 @@ public class Calculator : INotifyPropertyChanged
     /// <summary>
     /// Assign a dot to the displayed number in the calculator.
     /// </summary>
-    public void AssignDotToDisplayedNumber()
+    public void AssignDot()
     {
         switch (currentState)
         {

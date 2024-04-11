@@ -17,7 +17,7 @@ public partial class CalculatorForm : Form
     private void OnNumberButtonClick(object sender, EventArgs e)
     {
         var button = (Button)sender;
-        calculator.AssignDigitToDisplayedNumber(button.Text.First());
+        calculator.AssignDigit(button.Text.First());
     }
 
     private void OnOperationButtonClick(object sender, EventArgs e)
@@ -38,7 +38,7 @@ public partial class CalculatorForm : Form
     
     private void OnDotButtonClick(object sender, EventArgs e)
     {
-        calculator.AssignDotToDisplayedNumber();
+        calculator.AssignDot();
     }
 
     private void OnChangeSignButtonClick(object sender, EventArgs e)
