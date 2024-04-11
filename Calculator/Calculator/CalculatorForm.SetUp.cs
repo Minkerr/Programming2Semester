@@ -11,6 +11,7 @@ partial class CalculatorForm
     private Button equalButton;
     private Button multiplyButton;
     private Button subtractButton;
+    private Button dotButton;
     private TableLayoutPanel tableLayoutPanel;
 
     /// <summary>
@@ -25,6 +26,7 @@ partial class CalculatorForm
         {
             numberButton[i] = new Button();
         }
+        dotButton = new Button();
         divideButton = new Button();
         multiplyButton = new Button();
         subtractButton = new Button();
@@ -51,7 +53,7 @@ partial class CalculatorForm
         tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
         tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
         tableLayoutPanel.Controls.Add(display, 0, 0);
-        tableLayoutPanel.Controls.Add(numberButton[0], 0, 5);
+        tableLayoutPanel.Controls.Add(numberButton[0], 1, 5);
         tableLayoutPanel.Controls.Add(numberButton[1], 0, 4);
         tableLayoutPanel.Controls.Add(numberButton[2], 1, 4);
         tableLayoutPanel.Controls.Add(numberButton[3], 2, 4);
@@ -67,7 +69,8 @@ partial class CalculatorForm
         tableLayoutPanel.Controls.Add(addButton, 3, 4);
         tableLayoutPanel.Controls.Add(equalButton, 3, 5);
         tableLayoutPanel.Controls.Add(clearButton, 0, 1);
-        tableLayoutPanel.Controls.Add(changeSignButton, 2, 1);
+        tableLayoutPanel.Controls.Add(dotButton, 2, 5);
+        tableLayoutPanel.Controls.Add(changeSignButton, 0, 5);
         tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 26.9027157F));
         tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 14.6194534F));
         tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 14.6194534F));
@@ -88,7 +91,6 @@ partial class CalculatorForm
         // zero button
         numberButton[0].BackColor = Color.Orange;
         numberButton[0].ForeColor = Color.Transparent;
-        tableLayoutPanel.SetColumnSpan(numberButton[0], 3);
         numberButton[0].Dock = DockStyle.Fill;
         numberButton[0].Font = defaultFont;
         numberButton[0].Text = "0";
@@ -209,11 +211,19 @@ partial class CalculatorForm
         // clear button
         clearButton.BackColor = Color.Orange;
         clearButton.ForeColor = Color.Transparent;
-        tableLayoutPanel.SetColumnSpan(clearButton, 2);
+        tableLayoutPanel.SetColumnSpan(clearButton, 3);
         clearButton.Dock = DockStyle.Fill;
         clearButton.Font = defaultFont;
         clearButton.Text = "C";
         clearButton.Click += OnClearButtonClick;
+        
+        // dot button
+        dotButton.BackColor = Color.Orange;
+        dotButton.ForeColor = Color.Transparent;
+        dotButton.Dock = DockStyle.Fill;
+        dotButton.Font = defaultFont;
+        dotButton.Text = ",";
+        dotButton.Click += OnDotButtonClick;
         
         // change sign button
         changeSignButton.BackColor = Color.Orange;

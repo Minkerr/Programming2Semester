@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Calculator;
 
 using System.ComponentModel;
@@ -11,6 +13,7 @@ public class Calculator : INotifyPropertyChanged
     private char currentOperation = ' ';
     private string intermediateValue = "0";
     private string displayedNumber = "0";
+    private bool isDotEntered = false;
     private enum State
     {
         Number,
@@ -34,7 +37,7 @@ public class Calculator : INotifyPropertyChanged
     }
     
     /// <summary>
-    /// A data binding event that synchronizes the linked data at the time of the change.
+    /// A data binding event that supports instant display of the current result
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,15 +51,10 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     public void AssignDigitToDisplayedNumber(char digit)
     {
-        if (!char.IsDigit(digit))
-        {
-            throw new ArgumentException();
-        }
-
         switch (currentState)
         {
             case State.Number:
-                if (Display is "0" or "Error")
+                if (Display is "0")
                 {
                     Display = digit.ToString();
                 }
@@ -65,10 +63,37 @@ public class Calculator : INotifyPropertyChanged
                     Display += digit;
                 }
                 break;
-
             case State.Operation:
                 intermediateValue = Display;
                 Display = digit.ToString();
+                currentState = State.Number;
+                break;
+        }
+    }
+    
+    /// <summary>
+    /// Assign a dot to the displayed number in the calculator.
+    /// </summary>
+    public void AssignDotToDisplayedNumber()
+    {
+        switch (currentState)
+        {
+            case State.Number:
+                if (Display is "0")
+                {
+                    Display = "0,";
+                    isDotEntered = true;
+                }
+                else if (!isDotEntered)
+                {
+                    Display += ",";
+                    isDotEntered = true;
+                }
+                break;
+            case State.Operation:
+                intermediateValue = Display;
+                Display = "0,";
+                isDotEntered = true;
                 currentState = State.Number;
                 break;
         }
@@ -79,31 +104,25 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     public void SetOperation(char operation)
     {
-        if (operation != '+' && operation != '-' && operation != '×' && operation != '÷')
-        {
-            throw new ArgumentException();
-        }
-
         switch (currentState)
         {
             case State.Number:
                 if (currentOperation == ' ')
                 {
-                    intermediateValue = Display;
                     currentOperation = operation;
                     currentState = State.Operation;
+                    isDotEntered = false;
                 }
                 else
                 {
                     try
                     {
-                        Display = Calculation().ToString();
+                        Display = MakeCalculation().ToString();
+                        isDotEntered = false;
                     }
-                    catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
+                    catch (Exception e) when (e is DivideByZeroException)
                     {
-                        ClearCalculator();
-                        Display = "Error";
-                        currentState = State.Error;
+                        SetErrorState();
                         return;
                     }
 
@@ -112,12 +131,9 @@ public class Calculator : INotifyPropertyChanged
                     currentState = State.Operation;
                 }
                 break;
-
             case State.Operation:
                 currentOperation = operation;
-                break;
-
-            case State.Error:
+                isDotEntered = false;
                 break;
         }
     }
@@ -136,13 +152,12 @@ public class Calculator : INotifyPropertyChanged
                 {
                     try
                     {
-                        result = Calculation();
+                        result = MakeCalculation();
+                        isDotEntered = result.ToString().Contains(',');
                     }
-                    catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
+                    catch (Exception e) when (e is DivideByZeroException)
                     {
-                        ClearCalculator();
-                        Display = "Error";
-                        currentState = State.Error;
+                        SetErrorState();
                         return;
                     }
 
@@ -151,17 +166,14 @@ public class Calculator : INotifyPropertyChanged
                     currentState = State.Number;
                 }
                 break;
-
             case State.Operation:
                 try
                 {
-                    result = Calculation();
+                    result = MakeCalculation();
                 }
-                catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
+                catch (Exception e) when (e is DivideByZeroException)
                 {
-                    ClearCalculator();
-                    Display = "Error";
-                    currentState = State.Error;
+                    SetErrorState();
                     return;
                 }
 
@@ -171,7 +183,7 @@ public class Calculator : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Change the sign of the current value.
+    /// Change the sign of the displayed number.
     /// </summary>
     public void ChangeSign()
     {
@@ -196,30 +208,36 @@ public class Calculator : INotifyPropertyChanged
         Display = "0";
         intermediateValue = "0";
         currentOperation = ' ';
+        isDotEntered = false;
         currentState = State.Number;
     }
 
-    private double Calculation()
+    private void SetErrorState()
     {
+        ClearCalculator();
+        Display = "Error";
+        currentState = State.Error;
+    }
+    
+    private double MakeCalculation()
+    {
+        var rightResult = double.Parse(Display);
+        var leftResult = double.Parse(intermediateValue);
         switch (currentOperation)
         {
+            
             case '+':
-                return double.Parse(intermediateValue) + double.Parse(Display);
-
+                return leftResult + rightResult;
             case '-':
-                return double.Parse(intermediateValue) - double.Parse(Display);
-            
+                return leftResult - rightResult;
             case '×':
-                return double.Parse(intermediateValue) * double.Parse(Display);
-            
+                return leftResult * rightResult;
             case '÷':
-                var rightResult = double.Parse(Display);
                 if (Math.Abs(rightResult) < Delta)
                 {
                     throw new DivideByZeroException();
                 }
-                return double.Parse(intermediateValue) / rightResult;
-
+                return leftResult / rightResult;
             default: 
                 throw new ArgumentException();
         }

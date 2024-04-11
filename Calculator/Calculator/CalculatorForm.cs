@@ -35,6 +35,11 @@ public partial class CalculatorForm : Form
     {
         calculator.ClearCalculator();
     }
+    
+    private void OnDotButtonClick(object sender, EventArgs e)
+    {
+        calculator.AssignDotToDisplayedNumber();
+    }
 
     private void OnChangeSignButtonClick(object sender, EventArgs e)
     {
