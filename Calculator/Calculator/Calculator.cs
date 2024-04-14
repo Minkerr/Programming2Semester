@@ -25,7 +25,7 @@ public class Calculator : INotifyPropertyChanged
     /// <summary>
     /// Property for instant overwriting of number on calculator display.
     /// </summary>
-    public string Display
+    public string DisplayedNumber
     {
         get => displayedNumber;
 
@@ -43,7 +43,7 @@ public class Calculator : INotifyPropertyChanged
 
     private void NotifyPropertyChanged()
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Display)));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayedNumber)));
     }
 
     /// <summary>
@@ -54,18 +54,18 @@ public class Calculator : INotifyPropertyChanged
         switch (currentState)
         {
             case State.Number:
-                if (Display is "0")
+                if (DisplayedNumber is "0")
                 {
-                    Display = digit.ToString();
+                    DisplayedNumber = digit.ToString();
                 }
                 else
                 {
-                    Display += digit;
+                    DisplayedNumber += digit;
                 }
                 break;
             case State.Operation:
-                intermediateValue = Display;
-                Display = digit.ToString();
+                intermediateValue = DisplayedNumber;
+                DisplayedNumber = digit.ToString();
                 currentState = State.Number;
                 break;
         }
@@ -79,20 +79,20 @@ public class Calculator : INotifyPropertyChanged
         switch (currentState)
         {
             case State.Number:
-                if (Display is "0")
+                if (DisplayedNumber is "0")
                 {
-                    Display = "0,";
+                    DisplayedNumber = "0,";
                     isDotEntered = true;
                 }
                 else if (!isDotEntered)
                 {
-                    Display += ",";
+                    DisplayedNumber += ",";
                     isDotEntered = true;
                 }
                 break;
             case State.Operation:
-                intermediateValue = Display;
-                Display = "0,";
+                intermediateValue = DisplayedNumber;
+                DisplayedNumber = "0,";
                 isDotEntered = true;
                 currentState = State.Number;
                 break;
@@ -117,7 +117,7 @@ public class Calculator : INotifyPropertyChanged
                 {
                     try
                     {
-                        Display = MakeCalculation().ToString();
+                        DisplayedNumber = MakeCalculation().ToString();
                         isDotEntered = false;
                     }
                     catch (Exception e) when (e is DivideByZeroException)
@@ -126,7 +126,7 @@ public class Calculator : INotifyPropertyChanged
                         return;
                     }
 
-                    intermediateValue = Display;
+                    intermediateValue = DisplayedNumber;
                     currentOperation = operation;
                     currentState = State.Operation;
                 }
@@ -161,7 +161,7 @@ public class Calculator : INotifyPropertyChanged
                         return;
                     }
 
-                    Display = result.ToString();
+                    DisplayedNumber = result.ToString();
                     currentOperation = ' ';
                     currentState = State.Number;
                 }
@@ -177,7 +177,7 @@ public class Calculator : INotifyPropertyChanged
                     return;
                 }
 
-                Display = result.ToString();
+                DisplayedNumber = result.ToString();
                 break;
         }
     }
@@ -187,15 +187,15 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     public void ChangeSign()
     {
-        if (currentState != State.Error && Display != "0")
+        if (currentState != State.Error && DisplayedNumber != "0")
         {
-            if (Display[0] == '-')
+            if (DisplayedNumber[0] == '-')
             {
-                Display = Display.Substring(1);
+                DisplayedNumber = DisplayedNumber.Substring(1);
             }
             else
             {
-                Display = "-" + Display;
+                DisplayedNumber = "-" + DisplayedNumber;
             }
         }
     }
@@ -205,7 +205,7 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     public void ClearCalculator()
     {
-        Display = "0";
+        DisplayedNumber = "0";
         intermediateValue = "0";
         currentOperation = ' ';
         isDotEntered = false;
@@ -215,13 +215,13 @@ public class Calculator : INotifyPropertyChanged
     private void SetErrorState()
     {
         ClearCalculator();
-        Display = "Error";
+        DisplayedNumber = "Error";
         currentState = State.Error;
     }
     
     private double MakeCalculation()
     {
-        var rightResult = double.Parse(Display);
+        var rightResult = double.Parse(DisplayedNumber);
         var leftResult = double.Parse(intermediateValue);
         switch (currentOperation)
         {

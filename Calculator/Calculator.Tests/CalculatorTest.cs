@@ -17,7 +17,7 @@ public class CalculatorTest
         // act
         calculator.AssignDigit('1');
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("1"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("1"));
     }
     
     [Test]
@@ -30,7 +30,7 @@ public class CalculatorTest
         calculator.AssignDigit('2');
         calculator.AssignDigit('3');
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("123"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("123"));
     }
     
     [Test]
@@ -41,7 +41,7 @@ public class CalculatorTest
         // act
         calculator.AssignDot();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("0,"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("0,"));
     }
     
     [Test]
@@ -55,7 +55,7 @@ public class CalculatorTest
         calculator.AssignDigit('3');
         calculator.AssignDot();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("123,"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("123,"));
     }
     
     [Test]
@@ -69,7 +69,7 @@ public class CalculatorTest
         calculator.AssignDot();
         calculator.AssignDigit('3');
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("12,3"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("12,3"));
     }
     
     [Test]
@@ -84,7 +84,7 @@ public class CalculatorTest
         calculator.AssignDigit('3');
         calculator.AssignDot();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("12,3"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("12,3"));
     }
     
     [Test]
@@ -98,7 +98,7 @@ public class CalculatorTest
         calculator.AssignDigit('2');
         calculator.SetOperation('+');
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("3"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("3"));
     }
     
     [Test]
@@ -114,7 +114,7 @@ public class CalculatorTest
         calculator.SetOperation('-');
         calculator.ClearCalculator();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("0"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("0"));
     }
 
     [Test] 
@@ -129,7 +129,7 @@ public class CalculatorTest
         calculator.AssignDigit('3');
         calculator.Calculate();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("36"));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("36"));
     }
     
     [Test] 
@@ -147,7 +147,7 @@ public class CalculatorTest
         calculator.Calculate();
         calculator.AssignDot();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("37,5").Within(Delta));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("37,5").Within(Delta));
     }
     
     [Test] 
@@ -163,7 +163,7 @@ public class CalculatorTest
         calculator.Calculate();
         calculator.AssignDot();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("36,").Within(Delta));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("36,").Within(Delta));
     }
     
     [Test] 
@@ -181,6 +181,6 @@ public class CalculatorTest
         calculator.AssignDigit('2');
         calculator.Calculate();
         // assert
-        Assert.That(calculator.Display, Is.EqualTo("36,2").Within(Delta));
+        Assert.That(calculator.DisplayedNumber, Is.EqualTo("36,2").Within(Delta));
     }
 }

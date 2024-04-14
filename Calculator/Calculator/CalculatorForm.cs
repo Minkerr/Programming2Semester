@@ -10,7 +10,7 @@ public partial class CalculatorForm : Form
     public CalculatorForm()
     {
         SetUpButtons();
-        display?.DataBindings.Add("Text", calculator, "Display",
+        display?.DataBindings.Add("Text", calculator, "DisplayedNumber",
             true, DataSourceUpdateMode.OnPropertyChanged);
     }
 
