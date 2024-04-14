@@ -1,6 +1,6 @@
 namespace LZW;
 
-public class LZWZipper
+public class LZW
 {
     
 }

@@ -4,13 +4,24 @@ namespace LZW;
 
 public class Trie
 {
+    private class TrieNode
+    {
+        public Dictionary<char, TrieNode> Children { get; set; }
+        public bool IsEndOfWord { get; set; }
+
+        public TrieNode()
+        {
+            Children = new Dictionary<char, TrieNode>();
+            IsEndOfWord = false;
+        }
+    }
     private TrieNode root;
-    private int size;
+    public int Size { get; private set; }
     
     public Trie()
     {
         root = new TrieNode();
-        size = 0;
+        Size = 0;
     }
 
     public bool Add(string element) // add new word to the tree
@@ -30,7 +41,7 @@ public class Trie
         bool isNewWord = !currentNode.IsEndOfWord; // return true if it is a new word
         if (isNewWord)
         {
-            size++;
+            Size++;
         }
         currentNode.IsEndOfWord = true; // mark current node as the end of new word
 
@@ -74,7 +85,7 @@ public class Trie
             return false;
         }
         
-        size--;
+        Size--;
         currentNode.IsEndOfWord = false; // we delete the word, so now this is not the end of the word
         
         for (int i = nodes.Count - 1; i >= 0; i--) // Remove all unused nodes
@@ -119,10 +130,5 @@ public class Trie
         }
 
         return count;
-    }
-
-    public int Size()
-    {
-        return size;
     }
 }
