@@ -1,11 +1,8 @@
 ﻿namespace LZW;
 
-using LZW;
-
 public class Program {
     static void Main(string[] args)
     {
-        
         
         string filePath = "..\\..\\..\\" + "test.txt";
         var fileByteContent = File.ReadAllBytes(filePath);
