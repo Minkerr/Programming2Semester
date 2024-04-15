@@ -7,4 +7,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Update="test.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Include="bin\Debug\net8.0\test.txt.zipped" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net8.0\test.txt" />
+    </ItemGroup>
+
 </Project>

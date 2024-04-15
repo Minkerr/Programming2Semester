@@ -26,7 +26,7 @@ public class Trie
         Size = 0;
     }
 
-    public bool Add(List<byte> element, int value) // add new word to the tree
+    public bool Add(List<byte> element) // add new word to the tree
     {
         TrieNode currentNode = root; // create "pointer"
 
@@ -34,7 +34,7 @@ public class Trie
         {
             if (!currentNode.Children.TryGetValue(c, out TrieNode? newNode)) // try to go through existing prefix
             {
-                newNode = new TrieNode(value);
+                newNode = new TrieNode(Size);
                 currentNode.Children[c] = newNode; // if there is no such prefix, create new node with current letter
             }
             currentNode = newNode; // move "pointer" to the next node
@@ -134,21 +134,20 @@ public class Trie
         return count;
     }
     
-    public int GetValueOfElement(List<byte> element)
+    public int GetValue(List<byte> element)
     {
-        TrieNode currentNode = root;
+        TrieNode currentNode = root; // create pointer
 
-        for (var i = 0; i < element.Count; ++i)
+        for (var i = 0; i < element.Count; ++i) // iterate through the trie
         {
-            if (!currentNode.Children.ContainsKey(element[i]))
+            if (!currentNode.Children.ContainsKey(element[i])) // there is no such element in trie 
             {
                 return -1;
             }
 
-            currentNode = currentNode.Children[element[i]];
+            currentNode = currentNode.Children[element[i]]; // move pointer
         }
 
         return currentNode.Value;
     }
-
 }
