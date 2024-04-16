@@ -57,7 +57,7 @@ public class LZW
     /// <summary>
     /// Decompress input array of compressed bytes.
     /// </summary>
-    public byte[] Decode(byte[] input)
+    public byte[] Decompress(byte[] input)
     {
         var result = new List<byte>();
         var dictionary = new Dictionary<int, List<byte>>();
@@ -70,24 +70,21 @@ public class LZW
         var currentCode = StartMaximumOfCodes;
         var dictionarySize = StartMaximumOfCodes;
         var currentWord = new List<byte>();
+        result.AddRange(dictionary[codes[0]]);
 
-        for (var i = 0; i < codes.Count; ++i)
+        for (var i = 1; i < codes.Count; ++i)
         {
             if (dictionary.ContainsKey(codes[i]))
             {
-                if (dictionarySize != StartMaximumOfCodes)
+                while (dictionary.ContainsKey(currentCode))
                 {
-                    while (dictionary.ContainsKey(currentCode))
-                    {
-                        ++currentCode;
-                    }
-
-                    currentWord = new List<byte>(dictionary[codes[i - 1]]);
-                    currentWord.Add(dictionary[codes[i]][0]);
-
-                    dictionary.Add(currentCode++, currentWord);
+                    ++currentCode;
                 }
-
+                
+                currentWord = new List<byte>(dictionary[codes[i - 1]]);
+                currentWord.Add(dictionary[codes[i]][0]);
+                dictionary.Add(currentCode++, currentWord);
+                
                 result.AddRange(dictionary[codes[i]]);
             }
             else

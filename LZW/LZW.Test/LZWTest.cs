@@ -35,7 +35,7 @@ public class Tests
         var sourceBytes = File.ReadAllBytes(sourceFilePath);
         // act
         var compressedBytes = lzw.Compress(sourceBytes);
-        var decompressBytes = lzw.Decode(compressedBytes);
+        var decompressBytes = lzw.Decompress(compressedBytes);
         // assert
         Assert.That(sourceBytes, Is.EqualTo(decompressBytes));
     }
@@ -48,7 +48,7 @@ public class Tests
         var sourceBytes = File.ReadAllBytes(sourceFilePath);
         // act
         var compressedBytes = lzw.Compress(sourceBytes);
-        var decompressBytes = lzw.Decode(compressedBytes);
+        var decompressBytes = lzw.Decompress(compressedBytes);
         // assert
         Assert.That(sourceBytes, Is.EqualTo(decompressBytes));
     }

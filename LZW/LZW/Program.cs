@@ -18,7 +18,7 @@ public class Program {
         var sourceBytes = File.ReadAllBytes(filePath);
         var newFilePath = "..\\..\\..\\" + "testtest.txt";
         LZW lzw = new ();
-        var bytes = lzw.Decode(sourceBytes);
+        var bytes = lzw.Decompress(sourceBytes);
         File.WriteAllBytes(newFilePath, bytes);
         var firstFileSize = new FileInfo(filePath).Length;
         var secondFileSize = new FileInfo(newFilePath).Length;
