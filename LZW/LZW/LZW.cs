@@ -55,7 +55,7 @@ public class LZW
     }
     
     /// <summary>
-    /// Decodes input array of compressed bytes.
+    /// Decompress input array of compressed bytes.
     /// </summary>
     public byte[] Decode(byte[] input)
     {
@@ -106,13 +106,13 @@ public class LZW
     {
         var buffer = new ByteBuffer();
         var dictionarySize = StartMaximumOfCodes;
-        var currentMaximumAmountOfCodesNumber = StartMaximumOfCodes;
+        var currentMaximumOfCodes = StartMaximumOfCodes;
 
         for (var i = 0; i < input.Length - 1; ++i)
         {
-            if (dictionarySize == currentMaximumAmountOfCodesNumber)
+            if (dictionarySize == currentMaximumOfCodes)
             {
-                currentMaximumAmountOfCodesNumber *= 2;
+                currentMaximumOfCodes *= 2;
                 ++buffer.CurrentByteSize;
             }
 

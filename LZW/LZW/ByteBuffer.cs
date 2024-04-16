@@ -66,13 +66,8 @@ public class ByteBuffer
     }
     
     /// <summary>
-    /// Puts 8-bit bytes in CurrentByteSize-bit bytes and Data list
+    /// Add byte to decompression result
     /// </summary>
-    /// <param name="element">Single byte from input array of bytes.</param>
-    /// <returns>
-    /// true - if one new "byte" was filled and added to Data list,
-    /// false - if one new "byte" wasn't filled and added to Data list.
-    /// </returns>
     public bool AddByteToDecompressedBytes(byte element)
     {
         var bits = ByteToBits(element);
