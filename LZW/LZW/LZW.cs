@@ -63,38 +63,36 @@ public class LZW
         var dictionary = new Dictionary<int, List<byte>>();
         for (var i = 0; i < 256; ++i)
         {
-            dictionary[i] = new List<byte> { (byte) i };
+            dictionary[i] = new List<byte>();
+            dictionary[i].Add((byte) i);
         }
         
         List<int> codes = GetCodes(input);
-        var currentCode = StartMaximumOfCodes;
-        var dictionarySize = StartMaximumOfCodes;
-        var currentWord = new List<byte>();
+        var nextAvailableCode = StartMaximumOfCodes;
         result.AddRange(dictionary[codes[0]]);
 
         for (var i = 1; i < codes.Count; ++i)
         {
+            List<byte> currentPhrase;
             if (dictionary.ContainsKey(codes[i]))
             {
-                while (dictionary.ContainsKey(currentCode))
+                while (dictionary.ContainsKey(nextAvailableCode))
                 {
-                    ++currentCode;
+                    ++nextAvailableCode;
                 }
                 
-                currentWord = new List<byte>(dictionary[codes[i - 1]]);
-                currentWord.Add(dictionary[codes[i]][0]);
-                dictionary.Add(currentCode++, currentWord);
-                
+                currentPhrase = new List<byte>(dictionary[codes[i - 1]]);
+                currentPhrase.Add(dictionary[codes[i]][0]);
+                dictionary.Add(nextAvailableCode++, currentPhrase);
                 result.AddRange(dictionary[codes[i]]);
             }
             else
             {
-                currentWord = new List<byte>(dictionary[codes[i - 1]]);
-                currentWord.Add(dictionary[codes[i - 1]][0]);
-                dictionary.Add(codes[i], currentWord);
-                result.AddRange(currentWord);
+                currentPhrase = new List<byte>(dictionary[codes[i - 1]]);
+                currentPhrase.Add(dictionary[codes[i - 1]][0]);
+                dictionary.Add(codes[i], currentPhrase);
+                result.AddRange(currentPhrase);
             }
-            ++dictionarySize;
         }
 
         return result.ToArray();
@@ -123,6 +121,5 @@ public class LZW
 
         return buffer.DecompressedCodes;
     }
-    
     
 }
