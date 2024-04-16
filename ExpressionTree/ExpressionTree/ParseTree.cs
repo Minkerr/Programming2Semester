@@ -5,21 +5,16 @@ namespace ExpressionTree;
 /// </summary>
 public class ParseTree
 {
-    private Node root;
+    private INode root;
     private int size;
 
-    public ParseTree(string input)
-    {
-        root = CreateTreeFromString(input);
-    }
+    public ParseTree(string input) 
+        => root = CreateTreeFromString(input);
 
-    public ParseTree(Node root)
-    {
-        size = 0;
-        this.root = root;
-    }
-    
-    public Node CreateTreeFromString(string input)
+    public ParseTree(INode root) 
+        => this.root = root;
+
+    public INode CreateTreeFromString(string input)
     {
         string[] tokens = input.Split([" ", "(", ")"], StringSplitOptions.RemoveEmptyEntries);
         if (TooManyNumbersInInputOrStartsWithNumber(tokens))
@@ -29,7 +24,7 @@ public class ParseTree
         return CreateTreeRecursive(tokens, 0);
     } 
 
-    private Node CreateTreeRecursive(string[] tokens, int index)
+    private INode CreateTreeRecursive(string[] tokens, int index)
     {
         if (index > tokens.Length - 1) // if there are not enough numbers, recursion don't reach the end of array
         {
@@ -55,8 +50,7 @@ public class ParseTree
                     CreateTreeRecursive(tokens, index + 1),
                     CreateTreeRecursive(tokens, index + 2));
             default:
-                int value = 0;
-                if (int.TryParse(tokens[index], out value))
+                if (int.TryParse(tokens[index], out var value))
                 {
                     return new Operand(value);
                 }

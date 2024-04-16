@@ -3,22 +3,10 @@ namespace ExpressionTree;
 /// <summary>
 /// Implementation of multiply operation
 /// </summary>
-public class MultiplyOperation : Operation
+public class MultiplyOperation(INode left, INode right) : Operation(left, right)
 {
-    protected string Symbol = "*";
+    protected override char OperationSign => '*';
     
-    public MultiplyOperation(Node left, Node right) : base(left, right)
-    {
-    }
-
     public override double Calculate()
-        => left.Calculate() * right.Calculate();
-    
-    public override void Print()
-    {
-        Console.Write("( " + Symbol + " ");
-        left.Print();
-        right.Print();
-        Console.Write(")");
-    }
+        => Left.Calculate() * Right.Calculate();
 }

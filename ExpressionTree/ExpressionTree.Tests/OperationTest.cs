@@ -7,7 +7,7 @@ public class Tests
     [Test]
     public void Calculate_shouldWorkForAddOperation()
     {
-        ParseTree tree = new ParseTree(
+        ParseTree tree = new(
             new AddOperation(new Operand(3), new Operand(10)) 
             );
         Assert.That(tree.Calculate(), Is.EqualTo(13));
@@ -16,7 +16,7 @@ public class Tests
     [Test]
     public void Calculate_shouldWorkForSubtractionOperation()
     {
-        ParseTree tree = new ParseTree(
+        ParseTree tree = new(
             new SubtractionOperation(new Operand(-3), new Operand(-10)) 
         );
         Assert.That(tree.Calculate(), Is.EqualTo(7));
@@ -34,7 +34,7 @@ public class Tests
     [Test]
     public void Calculate_shouldWorkForDivideOperation()
     {
-        ParseTree tree = new ParseTree(
+        ParseTree tree = new(
             new DivideOperation(new Operand(21), new Operand(-7)) 
         );
         Assert.That(tree.Calculate(), Is.EqualTo(-3));

@@ -3,22 +3,11 @@ namespace ExpressionTree;
 /// <summary>
 /// Implementation of subtraction operation
 /// </summary>
-public class AddOperation : Operation
+public class AddOperation(INode left, INode right) : Operation(left, right)
 {
-    protected string Symbol = "+";
-    
-    public AddOperation(Node left, Node right) : base(left, right)
-    {
-    }
+    protected override char OperationSign => '+';
 
     public override double Calculate()
-        => left.Calculate() + right.Calculate();
+        => Left.Calculate() + Right.Calculate();
     
-    public override void Print()
-    {
-        Console.Write("( " + Symbol + " ");
-        left.Print();
-        right.Print();
-        Console.Write(")");
-    }
 }

@@ -3,30 +3,18 @@ namespace ExpressionTree;
 /// <summary>
 /// Implementation of divide operation
 /// </summary>
-public class DivideOperation : Operation
+public class DivideOperation(INode left, INode right) : Operation(left, right)
 {
     private static double DELTA = 0.001;
-    protected string Symbol = "/";
-    
-    public DivideOperation(Node left, Node right) : base(left, right)
-    {
-    }
+    protected override char OperationSign => '-';
 
     public override double Calculate()
     {
-        double rightResult = right.Calculate();
+        double rightResult = Right.Calculate();
         if (rightResult >= -DELTA && rightResult <= DELTA)
         {
             throw new DivideByZeroException();
         }
-        return left.Calculate() / rightResult;
-    }
-    
-    public override void Print()
-    {
-        Console.Write("( " + Symbol + " ");
-        left.Print();
-        right.Print();
-        Console.Write(")");
+        return Left.Calculate() / rightResult;
     }
 }
