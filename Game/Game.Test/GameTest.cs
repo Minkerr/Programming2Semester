@@ -2,7 +2,7 @@ namespace Game.Test;
 
 public class Tests
 {
-    private Game game;
+    private Game game = new();
 
     [SetUp]
     public void SetUp()

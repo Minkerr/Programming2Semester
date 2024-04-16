@@ -7,9 +7,14 @@ using System.Text;
 /// </summary>
 public class Game
 {
-    private int x { get; set; } //coordinates of the character
-    private int y { get; set; }
-    private List<StringBuilder> map { get; } // array of walls and passages
+    private int x; //coordinates of the character
+    private int y;
+    private List<List<char>> map; // array of walls and passages
+
+    public Game()
+    {
+        map = new List<List<char>>();
+    }
 
     /// <summary>
     /// Read map from a file and print eat to the console.
@@ -19,11 +24,10 @@ public class Game
         x = 1;
         y = 1;
         map = [];
-        string[] allLines;
-        allLines = File.ReadAllLines(filePath);
+        string[] allLines = File.ReadAllLines(filePath);
         foreach (var value in allLines)
         {
-            map.Add(new StringBuilder(value));
+            map.Add(value.ToCharArray().ToList());
         }
     }
 
@@ -133,10 +137,8 @@ public class Game
     /// <summary>
     /// Down event handler.
     /// </summary>
-    public void MoveDown(object? sender, EventArgs args)
-    {
-        TryToMove(Direction.Down);
-    }
+    public void MoveDown(object? sender, EventArgs args) 
+        => TryToMove(Direction.Down);
 
     /// <summary>
     /// Exit from the game event handler.
@@ -145,10 +147,5 @@ public class Game
     {
         Console.Clear();
         Environment.Exit(0);
-    }
-    
-    public List<StringBuilder> GetMap()
-    {
-        return map;
     }
 }

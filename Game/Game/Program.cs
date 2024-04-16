@@ -1,19 +1,13 @@
-﻿namespace Game;
+﻿using Game;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        var game = new Game("map.txt");
-        game.Start();
-        var eventLoop = new EventLoop();
+var game = new Game.Game("map.txt");
+game.Start();
+var eventLoop = new EventLoop();
 
-        eventLoop.LeftHandler += game.MoveLeft;
-        eventLoop.RightHandler += game.MoveRight;
-        eventLoop.UpHandler += game.MoveUp;
-        eventLoop.DownHandler += game.MoveDown;
-        eventLoop.ExitHandler += game.Exit;
+eventLoop.LeftHandler += game.MoveLeft;
+eventLoop.RightHandler += game.MoveRight;
+eventLoop.UpHandler += game.MoveUp;
+eventLoop.DownHandler += game.MoveDown;
+eventLoop.ExitHandler += game.Exit;
 
-        eventLoop.Run();
-    }
-}
+eventLoop.Run();
