@@ -25,6 +25,10 @@ public class Game
         {
             map.Add(new StringBuilder(value));
         }
+    }
+
+    public void Start()
+    {
         PrintTheMap();
         SetNewCharacterPosition(x, y);
     }
@@ -50,6 +54,14 @@ public class Game
     
     private void TryToMove(Direction direction)
     {
+        if (WillCharacterMove(direction)) //The character can only pass through an free cell
+        {
+            MoveCharacterInGivenDirection(direction);
+        }
+    }
+
+    public void MoveCharacterInGivenDirection(Direction direction)
+    {
         int newX = x;
         int newY = y;
         switch (direction)
@@ -67,12 +79,9 @@ public class Game
                 newY++;
                 break;
         }
-
-        if (map[newY][newX] == ' ') //The character can only pass through an free cell
-        {
-            SetNewCharacterPosition(newX, newY);
-        }
+        SetNewCharacterPosition(newX, newY);
     }
+
     
     public bool WillCharacterMove(Direction direction)
     {

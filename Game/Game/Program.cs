@@ -5,6 +5,7 @@ class Program
     static void Main(string[] args)
     {
         var game = new Game("map.txt");
+        game.Start();
         var eventLoop = new EventLoop();
 
         eventLoop.LeftHandler += game.MoveLeft;

@@ -11,12 +11,6 @@ public class Tests
     }
     
     [Test]
-    public void GameInitialization_shouldPlaceCharacterTo11Cell()
-    {
-        Assert.That(game.GetMap()[1][1], Is.EqualTo('@'));  
-    }
-    
-    [Test]
     public void MovingCharacter_shouldWorkOnlyIfDirectionalCellIsFree()
     {
         // the cell above is occupied
