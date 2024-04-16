@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Calculator;
 
 using System.ComponentModel;
@@ -120,7 +118,7 @@ public class Calculator : INotifyPropertyChanged
                         DisplayedNumber = MakeCalculation().ToString();
                         isDotEntered = false;
                     }
-                    catch (Exception e) when (e is DivideByZeroException)
+                    catch (DivideByZeroException)
                     {
                         SetErrorState();
                         return;
@@ -155,7 +153,7 @@ public class Calculator : INotifyPropertyChanged
                         result = MakeCalculation();
                         isDotEntered = result.ToString().Contains(',');
                     }
-                    catch (Exception e) when (e is DivideByZeroException)
+                    catch (DivideByZeroException)
                     {
                         SetErrorState();
                         return;
@@ -171,7 +169,7 @@ public class Calculator : INotifyPropertyChanged
                 {
                     result = MakeCalculation();
                 }
-                catch (Exception e) when (e is DivideByZeroException)
+                catch (DivideByZeroException)
                 {
                     SetErrorState();
                     return;
