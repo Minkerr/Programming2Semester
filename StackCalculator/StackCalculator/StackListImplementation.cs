@@ -1,6 +1,6 @@
-using Calculator.Exceptions;
+using StackCalculator.Exceptions;
 
-namespace Calculator;
+namespace StackCalculator;
 
 /// <summary>
 /// list stack implementation
@@ -14,7 +14,7 @@ public class StackListImplementation : IStack
         stackList = new List<double>();
     }
     
-    public void Add(double value) 
+    public void Push(double value) 
     {
         stackList.Add(value); // add element to list
     }

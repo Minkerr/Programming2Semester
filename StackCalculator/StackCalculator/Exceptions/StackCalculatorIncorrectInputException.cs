@@ -1,4 +1,4 @@
-namespace Calculator.Exceptions;
+namespace StackCalculator.Exceptions;
 
 /// <summary>
 ///  this exception is thrown when StackCalculator get incorrect expression in Polish notation

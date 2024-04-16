@@ -1,6 +1,6 @@
-using Calculator.Exceptions;
+using StackCalculator.Exceptions;
 
-namespace Calculator;
+namespace StackCalculator;
 
 /// <summary>
 /// list stack implementation
@@ -8,7 +8,6 @@ namespace Calculator;
 public class StackArrayImplementation : IStack 
 {
     private const int DefaultCapacity = 1024; 
-    private int capacity; // max capacity of stack
     private double[] stackArray;
     private int top; // index of top stack element in array
 
@@ -18,17 +17,15 @@ public class StackArrayImplementation : IStack
 
     public StackArrayImplementation(int capacity) // constructor with custom capacity
     {
-        this.capacity = capacity;
         stackArray = new double[capacity];
         top = -1; // top == -1 if the stack is empty 
     }
 
-    public void Add(double value)
+    public void Push(double value)
     {
-        if (top == capacity - 1) // one cannot put more items on the stack than the capacity
+        if (top == stackArray.Length - 1) // one cannot put more items on the stack than the capacity
         {
-            Array.Resize(ref stackArray, stackArray.Length + DefaultCapacity);
-            capacity = stackArray.Length;
+            Array.Resize(ref stackArray, stackArray.Length * 2);
         }
         top++; 
         stackArray[top] = value; // write element to the array
@@ -55,7 +52,7 @@ public class StackArrayImplementation : IStack
     }
 
     public bool IsEmpty()
-        => (top == -1); // the stack is empty if top == -1 
+        => top == -1; // the stack is empty if top == -1 
     
     public int Size()
         => top + 1; // stack size is the index of the top stack element + 1

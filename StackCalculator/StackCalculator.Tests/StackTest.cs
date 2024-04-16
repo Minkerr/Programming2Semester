@@ -1,7 +1,7 @@
-using Calculator.Exceptions;
+using StackCalculator.Exceptions;
 using Assert = NUnit.Framework.Assert;
 
-namespace Calculator.Tests;
+namespace StackCalculator.Tests;
 
 public class StackTest
 {
@@ -15,14 +15,14 @@ public class StackTest
     [TestCaseSource(nameof(Stacks))]
     public void Add_shouldAddElementToStackTop(IStack stack)
     {
-        stack.Add(2);
+        stack.Push(2);
         Assert.That(stack.Peek(), Is.EqualTo(2));
     }
 
     [TestCaseSource(nameof(Stacks))]
     public void Pop_shouldDeleteElementFromStackTopAndReturnDeletedElement(IStack stack)
     {
-        stack.Add(2);
+        stack.Push(2);
         var actual = stack.Pop();
         Assert.That(stack.IsEmpty(), Is.True);
         Assert.That(actual, Is.EqualTo(2));
@@ -43,8 +43,8 @@ public class StackTest
     [TestCaseSource(nameof(Stacks))]
     public void Size_shouldReturnNumberOfElements(IStack stack)
     {
-        stack.Add(2);
-        stack.Add(3);
+        stack.Push(2);
+        stack.Push(3);
         Assert.That(stack.Size(), Is.EqualTo(2));
     }
     
@@ -58,7 +58,7 @@ public class StackTest
     public void AddInArrayStack_shouldResizeStackWhenStackIsOverflowed()
     {
         IStack stack = new StackArrayImplementation(0);
-        stack.Add(2);
+        stack.Push(2);
         Assert.That(stack.Peek(), Is.EqualTo(2));
     }
 }

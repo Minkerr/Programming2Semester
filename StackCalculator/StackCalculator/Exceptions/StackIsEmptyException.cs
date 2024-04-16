@@ -1,4 +1,4 @@
-namespace Calculator.Exceptions;
+namespace StackCalculator.Exceptions;
 
 /// <summary>
 /// this exception is thrown when user try to get or pop element from empty IStack

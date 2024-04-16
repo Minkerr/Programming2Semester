@@ -1,6 +1,6 @@
-﻿using Calculator.Exceptions;
+﻿using StackCalculator.Exceptions;
 
-namespace Calculator;
+namespace StackCalculator;
 
 /// <summary>
 /// calculator of expressions written in reverse Polish notation
@@ -24,7 +24,7 @@ public class StackCalculator
         {
             if (int.TryParse(token, out int number)) // if we come across a number, add it to the stack
             {
-                stack.Add(number); 
+                stack.Push(number); 
             }
             else // if we come across an operator, get two top numbers, 
             { // apply an operator to them and put the result on the stack
@@ -57,7 +57,7 @@ public class StackCalculator
                         throw new StackCalculatorIncorrectInputException();
                 }
 
-                stack.Add(result); // add intermediate calculation result to the stack
+                stack.Push(result); // add intermediate calculation result to the stack
             }
         }
 

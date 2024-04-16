@@ -1,6 +1,6 @@
-using Calculator.Exceptions;
+using StackCalculator.Exceptions;
 
-namespace Calculator.Tests;
+namespace StackCalculator.Tests;
 
 public class StackCalculatorTest
 {

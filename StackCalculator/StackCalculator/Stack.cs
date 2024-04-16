@@ -1,4 +1,4 @@
-namespace Calculator;
+namespace StackCalculator;
 
 /// <summary>
 /// interface of stack data structure
@@ -8,8 +8,7 @@ public interface IStack
     /// <summary>
     /// put new element on top of the stack
     /// </summary>
-    /// <param name="value"></param>
-    void Add(double value);
+    void Push(double value);
 
     /// <summary>
     /// remove top element og the stack
