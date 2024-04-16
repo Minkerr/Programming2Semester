@@ -15,10 +15,10 @@ public class Program {
         Console.Write((double)firstFileSize / secondFileSize);
         */
         string filePath = "..\\..\\..\\" + "test.txt.zipped";
-        var fileByteContent = File.ReadAllBytes(filePath);
+        var sourceBytes = File.ReadAllBytes(filePath);
         var newFilePath = "..\\..\\..\\" + "testtest.txt";
         LZW lzw = new ();
-        var bytes = lzw.Decode(fileByteContent);
+        var bytes = lzw.Decode(sourceBytes);
         File.WriteAllBytes(newFilePath, bytes);
         var firstFileSize = new FileInfo(filePath).Length;
         var secondFileSize = new FileInfo(newFilePath).Length;
