@@ -71,7 +71,7 @@ public class ByteBuffer
     public bool AddByteToDecompressedBytes(byte element)
     {
         var bits = ByteToBits(element);
-        bool wasAdded = false;
+        bool result = false;
 
         foreach (var bit in bits)
         {
@@ -82,10 +82,10 @@ public class ByteBuffer
                 DecompressedCodes.Add(codeBuffer);
                 currentLengthOfCodeBuffer = 0;
                 codeBuffer = 0;
-                wasAdded = true;
+                result = true;
             }
         }
-        return wasAdded;
+        return result;
     }
 
     /// <summary>

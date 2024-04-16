@@ -39,4 +39,17 @@ public class Tests
         // assert
         Assert.That(sourceBytes, Is.EqualTo(decompressBytes));
     }
+    
+    [Test]
+    public void LZW_shouldDecompressPNGFileCorrectly()
+    {
+        // arrange
+        string sourceFilePath = "..\\..\\..\\" + "test.png";
+        var sourceBytes = File.ReadAllBytes(sourceFilePath);
+        // act
+        var compressedBytes = lzw.Compress(sourceBytes);
+        var decompressBytes = lzw.Decode(compressedBytes);
+        // assert
+        Assert.That(sourceBytes, Is.EqualTo(decompressBytes));
+    }
 }

@@ -67,9 +67,9 @@ public class LZW
         }
         
         List<int> codes = GetCodes(input);
-        var dictionaryPointer = StartMaximumOfCodes;
+        var currentCode = StartMaximumOfCodes;
         var dictionarySize = StartMaximumOfCodes;
-        var sequence = new List<byte>();
+        var currentWord = new List<byte>();
 
         for (var i = 0; i < codes.Count; ++i)
         {
@@ -77,24 +77,25 @@ public class LZW
             {
                 if (dictionarySize != StartMaximumOfCodes)
                 {
-                    while (dictionary.ContainsKey(dictionaryPointer))
+                    while (dictionary.ContainsKey(currentCode))
                     {
-                        ++dictionaryPointer;
+                        ++currentCode;
                     }
 
-                    sequence = new List<byte>(dictionary[codes[i - 1]]) { dictionary[codes[i]][0] };
+                    currentWord = new List<byte>(dictionary[codes[i - 1]]);
+                    currentWord.Add(dictionary[codes[i]][0]);
 
-                    dictionary.Add(dictionaryPointer++, sequence);
+                    dictionary.Add(currentCode++, currentWord);
                 }
 
                 result.AddRange(dictionary[codes[i]]);
             }
             else
             {
-                sequence = new List<byte>(dictionary[codes[i - 1]]) { dictionary[codes[i - 1]][0] };
-
-                dictionary.Add(codes[i], sequence);
-                result.AddRange(sequence);
+                currentWord = new List<byte>(dictionary[codes[i - 1]]);
+                currentWord.Add(dictionary[codes[i - 1]][0]);
+                dictionary.Add(codes[i], currentWord);
+                result.AddRange(currentWord);
             }
             ++dictionarySize;
         }
@@ -125,4 +126,6 @@ public class LZW
 
         return buffer.DecompressedCodes;
     }
+    
+    
 }
