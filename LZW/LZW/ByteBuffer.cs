@@ -32,7 +32,7 @@ public class ByteBuffer
 
         foreach (var bit in bits)
         {
-            byteBuffer = (byte)((byteBuffer << 1) + bit);
+            byteBuffer = (byte)((byteBuffer << 1) + (bit ? 1 : 0));
             ++currentLengthOfByteBuffer;
             if (currentLengthOfByteBuffer == byteSize)
             {
@@ -43,12 +43,12 @@ public class ByteBuffer
         }
     }
 
-    private byte[] IntToBits(int code)
+    private bool[] IntToBits(int code)
     {
-        var bitsOfCode = new byte[CurrentByteSize];
+        var bitsOfCode = new bool[CurrentByteSize];
         for (var i = CurrentByteSize - 1; i >= 0; --i)
         {
-            bitsOfCode[i] = (byte)(code % 2);
+            bitsOfCode[i] = (code % 2 == 1);
             code /= 2;
         }
         return bitsOfCode;
@@ -102,7 +102,7 @@ public class ByteBuffer
             var bits = IncompleteByteToBits(element);
             foreach (var bit in bits)
             {
-                codeBuffer = ((codeBuffer << 1) + bit);
+                codeBuffer = (codeBuffer << 1) + (bit ? 1 : 0);
                 ++currentLengthOfCodeBuffer;
                 if (currentLengthOfCodeBuffer == CurrentByteSize)
                 {
@@ -114,16 +114,14 @@ public class ByteBuffer
         }
     }
 
-    private byte[] IncompleteByteToBits(byte element)
+    private bool[] IncompleteByteToBits(byte element)
     {
-        var bits = new byte[CurrentByteSize - currentLengthOfCodeBuffer];
-
-        var digitCounter = 0;
+        var bits = new bool[CurrentByteSize - currentLengthOfCodeBuffer];
+ 
         for (var i = CurrentByteSize - currentLengthOfCodeBuffer - 1; element > 0; --i)
         {
-            bits[i] = (byte)(element % 2);
+            bits[i] = (element % 2 == 1);
             element /= 2;
-            ++digitCounter;
         }
 
         return bits;

@@ -21,18 +21,18 @@ public class LZW
         }
 
         ByteBuffer buffer = new();
-        var currentWord = new List<byte>();
+        var currentPhrase = new List<byte>();
         var currentMaximumOfCodes = StartMaximumOfCodes;
         
         for (var i = 0; i < input.Length; ++i)
         {
-            var currentWordWithExtraByte = new List<byte>();
-            currentWordWithExtraByte.AddRange(currentWord);
-            currentWordWithExtraByte.Add(input[i]);
+            var currentPhraseWithExtraByte = new List<byte>();
+            currentPhraseWithExtraByte.AddRange(currentPhrase);
+            currentPhraseWithExtraByte.Add(input[i]);
 
-            if (trie.Contains(currentWordWithExtraByte))
+            if (trie.Contains(currentPhraseWithExtraByte))
             {
-                currentWord = currentWordWithExtraByte;
+                currentPhrase = currentPhraseWithExtraByte;
             }
             else
             {
@@ -42,13 +42,13 @@ public class LZW
                     ++buffer.CurrentByteSize;
                 }
                 
-                buffer.AddCodeToCompressedBytes(trie.GetValue(currentWord));
-                trie.Add(currentWordWithExtraByte);
-                currentWord.Clear();
-                currentWord.Add(input[i]);
+                buffer.AddCodeToCompressedBytes(trie.GetValue(currentPhrase));
+                trie.Add(currentPhraseWithExtraByte);
+                currentPhrase.Clear();
+                currentPhrase.Add(input[i]);
             }
         }
-        buffer.AddCodeToCompressedBytes(trie.GetValue(currentWord));
+        buffer.AddCodeToCompressedBytes(trie.GetValue(currentPhrase));
         buffer.AddIncompleteByteToCompressedBytes();
         
         return buffer.CompressedBytes.ToArray();
@@ -59,46 +59,43 @@ public class LZW
     /// </summary>
     public byte[] Decompress(byte[] input)
     {
-        var result = new List<byte>();
-        var dictionary = new Dictionary<int, List<byte>>();
+        var decompressedBytes = new List<byte>();
+        var phraseDictionary = new Dictionary<int, List<byte>>();
         for (var i = 0; i < 256; ++i)
         {
-            dictionary[i] = new List<byte>();
-            dictionary[i].Add((byte) i);
+            phraseDictionary[i] = new List<byte>();
+            phraseDictionary[i].Add((byte) i);
         }
         
-        List<int> codes = GetCodes(input);
+        List<int> phraseCodes = GetPhraseCodes(input);
         var nextAvailableCode = StartMaximumOfCodes;
-        result.AddRange(dictionary[codes[0]]);
+        decompressedBytes.AddRange(phraseDictionary[phraseCodes[0]]);
 
-        for (var i = 1; i < codes.Count; ++i)
+        for (var i = 1; i < phraseCodes.Count; ++i)
         {
-            List<byte> currentPhrase;
-            if (dictionary.ContainsKey(codes[i]))
+            var currentPhrase = new List<byte>(phraseDictionary[phraseCodes[i - 1]]);
+            if (phraseDictionary.ContainsKey(phraseCodes[i]))
             {
-                while (dictionary.ContainsKey(nextAvailableCode))
+                while (phraseDictionary.ContainsKey(nextAvailableCode))
                 {
                     ++nextAvailableCode;
                 }
-                
-                currentPhrase = new List<byte>(dictionary[codes[i - 1]]);
-                currentPhrase.Add(dictionary[codes[i]][0]);
-                dictionary.Add(nextAvailableCode++, currentPhrase);
-                result.AddRange(dictionary[codes[i]]);
+                currentPhrase.Add(phraseDictionary[phraseCodes[i]][0]);
+                phraseDictionary.Add(nextAvailableCode++, currentPhrase);
+                decompressedBytes.AddRange(phraseDictionary[phraseCodes[i]]);
             }
             else
             {
-                currentPhrase = new List<byte>(dictionary[codes[i - 1]]);
-                currentPhrase.Add(dictionary[codes[i - 1]][0]);
-                dictionary.Add(codes[i], currentPhrase);
-                result.AddRange(currentPhrase);
+                currentPhrase.Add(phraseDictionary[phraseCodes[i - 1]][0]);
+                phraseDictionary.Add(phraseCodes[i], currentPhrase);
+                decompressedBytes.AddRange(currentPhrase);
             }
         }
 
-        return result.ToArray();
+        return decompressedBytes.ToArray();
     }  
     
-    private List<int> GetCodes(byte[] input)
+    private List<int> GetPhraseCodes(byte[] input)
     {
         var buffer = new ByteBuffer();
         var dictionarySize = StartMaximumOfCodes;
