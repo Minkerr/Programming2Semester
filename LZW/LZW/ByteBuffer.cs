@@ -24,7 +24,7 @@ public class ByteBuffer
     private int currentLengthOfCodeBuffer;
 
     /// <summary>
-    /// Puts code from trie to separate 8-bit bytes.
+    /// Add word code to result compressed bytes.
     /// </summary>
     public void AddCodeToCompressedBytes(int code)
     {
