@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTree", "ExpressionTree\ExpressionTree.csproj", "{4EFD9C6C-66EF-48C9-9DB7-04D1820D51F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTree.Tests", "ExpressionTree.Tests\ExpressionTree.Tests.csproj", "{84FA100C-F497-4EC6-B332-1749E37D3153}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4EFD9C6C-66EF-48C9-9DB7-04D1820D51F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EFD9C6C-66EF-48C9-9DB7-04D1820D51F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EFD9C6C-66EF-48C9-9DB7-04D1820D51F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EFD9C6C-66EF-48C9-9DB7-04D1820D51F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84FA100C-F497-4EC6-B332-1749E37D3153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FA100C-F497-4EC6-B332-1749E37D3153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FA100C-F497-4EC6-B332-1749E37D3153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FA100C-F497-4EC6-B332-1749E37D3153}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
