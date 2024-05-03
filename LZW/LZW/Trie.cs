@@ -17,6 +17,7 @@ public class Trie
             IsEndOfWord = false;
         }
     }
+    
     private TrieNode root;
     public int Size { get; private set; }
     
@@ -69,7 +70,7 @@ public class Trie
     public bool Remove(List<byte> element)
     {
         TrieNode currentNode = root; // create "pointer"
-        List<TrieNode> nodes = new List<TrieNode>(); // remember our path through the tree to the end of word. 
+        List<TrieNode> nodes = new(); // remember our path through the tree to the end of word. 
         nodes.Add(currentNode);                      // We will make a reverse move
 
         foreach (var c in element)

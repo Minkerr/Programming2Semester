@@ -48,6 +48,7 @@ public class LZW
                 currentPhrase.Add(input[i]);
             }
         }
+        
         buffer.AddCodeToCompressedBytes(trie.GetValue(currentPhrase));
         buffer.AddIncompleteByteToCompressedBytes();
         
